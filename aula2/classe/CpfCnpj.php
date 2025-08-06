@@ -4,15 +4,24 @@ class CpfCnpj
 {
     private string $documento;
 
-    private function __construct(
-        string $documento
-    ) {
+    private function __construct(string $documento)
+    {
         $this->documento = $documento;
     }
 
-    public static function cpfNaoConfiavel(string $cpfNaoConfiavel): self
+    public static function cpfNaoConfiavel(string $cpfNaoConfiavel): mixed
     {
         $valorNovo = preg_replace('/[^0-9]/', '', $cpfNaoConfiavel);
+
+        if (strlen($valorNovo) <= 11) {
+            $valorNovo = str_pad($valorNovo, 11, '0', STR_PAD_LEFT);
+        }
+        elseif (strlen($valorNovo) <= 14) {
+            $valorNovo = str_pad($valorNovo, 14, '0', STR_PAD_LEFT);
+        }
+        else {
+            return false;
+        }
 
         return new self($valorNovo);
     }
