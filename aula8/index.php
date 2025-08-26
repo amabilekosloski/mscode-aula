@@ -20,6 +20,11 @@ $alunos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>Document</title>
 </head>
 <body>
+    <form action="/aula8/criar-aluno.php" method="post">
+        <input type="text" name="nome" placeholder="Nome do Aluno" required>
+        <button type="submit">Adicionar</button>
+    </form>
+
     <ul>
         <?php
         foreach ($alunos as $aluno) {
